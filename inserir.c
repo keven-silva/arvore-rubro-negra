@@ -1,10 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "struct.h"
-#include "utilitarios.h"
+#include "inserir.h"
 
 
-void RotaRN(No *z, No **ptRaiz, No *externo)
+void RotaRN(No *z, No *externo, No **ptRaiz)
   {
     while (z->pai->cor == 'R')
     {
@@ -22,12 +19,12 @@ void RotaRN(No *z, No **ptRaiz, No *externo)
                 if (z == z->pai->dir)
                 {
                     z = z->pai;
-                    RotacaoE(z->pai, ptRaiz, externo); 
+                    RotacaoE(z->pai, externo, ptRaiz); 
                 }
 
                 z->pai->cor = 'N';
                 z->pai->pai->cor = 'R';
-                RotacaoD(z->pai->pai, ptRaiz, externo);
+                RotacaoD(z->pai->pai, externo, ptRaiz);
             }
         }
         else
@@ -44,12 +41,12 @@ void RotaRN(No *z, No **ptRaiz, No *externo)
                 if (z == z->pai->esq)
                 {
                     z = z->pai;
-                    RotacaoD(z, ptRaiz, externo); 
+                    RotacaoD(z, externo, ptRaiz); 
                 }
                 
                 z->pai->cor = 'N';
                 z->pai->pai->cor = 'R';
-                RotacaoE(z->pai->pai, ptRaiz, externo);
+                RotacaoE(z->pai->pai, externo, ptRaiz);
             }
         }    
     }   
@@ -58,7 +55,7 @@ void RotaRN(No *z, No **ptRaiz, No *externo)
 }
 
 
-void inserir(No *externo, No *z, No **ptRaiz)
+void InserirRN(No *z, No *externo, No **ptRaiz)
 {
     No (*y) = externo;
     No (*pt) = (*ptRaiz);
@@ -106,7 +103,7 @@ void inserir(No *externo, No *z, No **ptRaiz)
 
         z->esq = z->dir = externo;
         z->cor = 'R';
-        RotaRN(z, ptRaiz, externo);
+        RotaRN(z, externo,  ptRaiz);
     }
     
     (*ptRaiz)->cor = 'N';

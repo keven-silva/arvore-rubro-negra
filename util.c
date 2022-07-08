@@ -1,9 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "struct.h"
+#include "util.h"
 
 
-void MoverPai(No *externo, No **u, No **v, No **ptRaiz)
+void MoverPai(No **u, No **v, No *externo, No **ptRaiz)
 {   
     if((*u)->pai == externo)
     {
@@ -23,44 +21,21 @@ void MoverPai(No *externo, No **u, No **v, No **ptRaiz)
 }
 
 
-void RotacaoE(No *z, No **ptRaiz, No *externo)
+void RotacaoD(No *z, No *externo, No **ptRaiz)
 {
-    No *y = z->dir;
-
-    z->dir = y->esq;
+    No *y = z->esq;
+    z->esq = y->dir;
+    
     if (z->dir != externo)
     {
-        z->dir->pai = z;
+        y->dir->pai = z;
     }
 
     y->pai = z->pai;
 
     if (z->pai == externo)
-        *ptRaiz = y;
-    else if (z == z->pai->esq)
-        z->pai->esq = y;
-    else
-        z->pai->dir = y;
-
-    y->esq = z;
-    z->pai = y;
-}
-
-
-void RotacaoD(No *z, No **ptRaiz, No *externo)
-{
-    No *y = z->esq;
-    z->esq = y->dir;
-    if (z->esq != externo)
     {
-        z->esq->pai = z;
-    }
-
-    y->pai = z->pai;
-
-    if (z->pai == externo) 
-    {
-        *ptRaiz = y;
+        (*ptRaiz) = y;
     }
     else if (z == z->pai->esq)
     {
@@ -71,6 +46,35 @@ void RotacaoD(No *z, No **ptRaiz, No *externo)
     }   
 
     y->dir = z;
+    z->pai = y;
+}
+
+
+void RotacaoE(No *z, No *externo, No **ptRaiz)
+{
+    No *y = z->dir;
+    z->dir = y->esq;
+    
+    if (z->esq != externo)
+    {
+        z->esq->pai = z;
+    }
+
+    y->pai = z->pai;
+
+    if (z->pai == externo) 
+    {
+        (*ptRaiz) = y;
+    }
+    else if (z == z->pai->esq)
+    {
+        z->pai->esq = y;
+    }else
+    {
+        z->pai->dir = y;
+    }   
+
+    y->esq = z;
     z->pai = y;
 }
 
@@ -132,13 +136,48 @@ void imprimiArvores(No *pt, No *externo)
     }
 }
 
-void outputOrd(No *pt, No *externo)
+void imprimirOrdem(No *pt, No *externo)
 {
-    printf("Chave: %d | Cor: %c\n", pt->chave, pt->cor);
+    // printf("Chave: %d | Cor: %c\n", pt->chave, pt->cor);
     if (pt->esq != externo)
-        outputOrd(pt->esq, externo);
-    // printf("%d (%d);\n", pt->chave, pt->cor);
+    {
+        imprimirOrdem(pt->esq, externo);
+    }
+    
+    printf("Chave: %d | Cor: %c\n", pt->chave, pt->cor);
+
     if (pt->dir != externo)
-        outputOrd(pt->dir, externo);
-    /* printf("%d (%d);\n", pt->chave, pt->cor); */
+    {
+        imprimirOrdem(pt->dir, externo);
+    }
+
+    // printf("Chave: %d | Cor: %c\n", pt->chave, pt->cor);
+}
+
+
+No* buscarNo(No *z, int key, No *externo) 
+{
+    while(z != externo && key != z->chave)
+    {
+        if(key < z->chave) 
+        {
+            z = z->esq;
+        }else {
+           z = z->dir;
+        }
+
+    }   
+
+    return z;
+}
+
+
+No* sucessor(No *z, No* externo) 
+{
+    No (*y) = z;
+
+    while(y->esq != externo)
+        y = y->esq;
+
+    return y;
 }

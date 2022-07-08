@@ -1,5 +1,9 @@
-#include "inserir.c"
+#include <stdio.h>
+#include <stdlib.h>
 #include "struct.h"
+#include "util.h"
 
-void inserir(No *externo, No *z, No **ptRaiz);
-void RotaRN(No *z,No **ptRaiz, No *externo);
+
+
+void InserirRN(No *z, No *externo, No **ptRaiz);
+void RotaRN(No *z, No *externo, No **ptRaiz);
