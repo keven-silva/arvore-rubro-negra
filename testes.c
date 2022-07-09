@@ -11,7 +11,7 @@ int main(){
     // testeBaseRemover(externo);
 
     testeDeInsercao(externo);
-    // testeDeRemover(externo);
+    testeDeRemocao(externo);
     return 0;
 }
 
@@ -66,7 +66,7 @@ void testeDeInsercao(No *externo)
     ptRaiz = (No**)malloc(sizeof(No*) * QTD_ARVORES);
     // Inicializando cada raiz para apontar para NULL
     for (i = 0; i < QTD_ARVORES; i++) {
-        ptRaiz[i] = NULL;
+        ptRaiz[i] = externo;    
     }
     
     // Inserindo a quantidade definida de nós em cada árvore
@@ -79,7 +79,7 @@ void testeDeInsercao(No *externo)
         {
             int key = rand() % RAND_LIMITE;
             No *z = criarNo(key, externo);
-            InserirRN(z, externo, ptRaiz[i]);
+            InserirRN(z, externo, &(ptRaiz[i]));
             nos = contaNos(ptRaiz[i], externo);
         }
 
@@ -89,22 +89,24 @@ void testeDeInsercao(No *externo)
 
 
 // Procedimento que realiza as remocoes exigidas
-// void testeDeExclusao(No *externo) 
-//{
-//     int i;
-//     int nos; // contador
-//     for(i = 0; i < QTD_ARVORES; i++) {
-//     No *externo = noExterno();   
-//      // Variavel para o resultado de alteracao de altura
-//         nos = QTD_NOS; // contador
+void testeDeRemocao(No *externo) 
+{
+    int i;
+    int nos; // contador
+    for(i = 0; i < QTD_ARVORES; i++) { 
+     // Variavel para o resultado de alteracao de altura
+        nos = QTD_NOS; // contador
 
-//         // Enquanto nao ocorrerem as N remocoes, o laco continua
-//         while (nos > (QTD_NOS - QTD_REMOCOES)) {
-//             int key = rand() % RAND_LIMITE;
-//             deletaNo(&(ptRaiz[i]), key, &alturaTotal, &(ptRaiz[i]));
-//             nos = contaNos(ptRaiz[i]);
-//         }
-//         // Atualizando a altura da arvore apos as remocoes
-//         atualizaAltura(ptRaiz[i]);
-//     }
-// }
+        // Enquanto nao ocorrerem as N remocoes, o laco continua
+        while (nos > (QTD_NOS - QTD_REMOCOES)) {
+            int key = rand() % RAND_LIMITE;
+            No *z = buscarNo(ptRaiz[0], key, externo);
+            
+            if (z->chave != 0) 
+            {
+                RemoverRN(z, externo, &(ptRaiz[i]));
+                nos = contaNos(ptRaiz[i], externo);    
+            }            
+        }
+    }
+}

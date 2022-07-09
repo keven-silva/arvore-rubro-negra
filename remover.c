@@ -3,7 +3,7 @@
 
 void RemoverRN(No *z, No *externo, No **ptRaiz)
 {
-    No *x, *corOriginal;
+    No *x, *corOriginal = noExterno();
 	No *y = z;
 	corOriginal->cor = y->cor;
 
