@@ -3,7 +3,8 @@
 
 void RemoverRN(No *z, No *externo, No **ptRaiz)
 {
-    No *x, *corOriginal = noExterno();
+	No *corOriginal = noExterno();
+    No *x = noExterno();
 	No *y = z;
 	corOriginal->cor = y->cor;
 
@@ -39,7 +40,7 @@ void RemoverRN(No *z, No *externo, No **ptRaiz)
     }
 
 	free(z);
-
+	
 	if(corOriginal->cor == 'N')
     {
 		RotaRemoverRN(x, externo, ptRaiz);
@@ -78,26 +79,28 @@ void RotaRemoverRN(No *z, No *externo, No **ptRaiz)
 				}
 
 				w->cor = z->pai->cor;
-				z->pai->cor = 'N';
-				w->dir->cor = 'N';
+				z->pai->cor = w->dir->cor = 'N';
 				RotacaoE(z->pai, externo, ptRaiz);
-				z =(*ptRaiz);
+				z = (*ptRaiz);
 			}
 		} else {
 			No *w = z->pai->esq;
 
-			if(w->cor == 'R') {
+			if(w->cor == 'R') 
+			{
 				z->pai->cor = 'R';
 				w->cor = 'N';
 				RotacaoD(z->pai, externo, ptRaiz);
 				w = z->pai->esq;
 			}
 
-			if(w->dir->cor == 'N' && w->esq->cor == 'N') {
+			if(w->dir->cor == 'N' && w->esq->cor == 'N') 
+			{
 				w->cor = 'R';
 				z = z->pai;
 			} else {
-				if(w->esq->cor == 'N') {
+				if(w->esq->cor == 'N') 
+				{
 					w->dir->cor = 'N';
 					w->cor = 'R';
 					RotacaoE(w, externo,  ptRaiz);
@@ -105,10 +108,9 @@ void RotaRemoverRN(No *z, No *externo, No **ptRaiz)
 				}
 
 				w->cor = z->pai->cor;
-				z->pai->cor = 'N';
-				w->esq->cor = 'N';
+				z->pai->cor = w->esq->cor = 'N';
 				RotacaoD(z->pai, externo, ptRaiz);
-				z =(*ptRaiz);
+				z = (*ptRaiz);
 			}
 		}
 	}

@@ -9,9 +9,14 @@ int main(){
     // printf("---------------------------------------------------------------");
     // printf("\nTeste base de remocao\n");
     // testeBaseRemover(externo);
-
+    printf("\nTeste de insercao\n");
     testeDeInsercao(externo);
+    imprimiArvores(externo);
+    printf("---------------------------------------------------------------");
+    printf("\nTeste de remocao\n");
     testeDeRemocao(externo);
+    imprimiArvores(externo);
+
     return 0;
 }
 
@@ -82,8 +87,6 @@ void testeDeInsercao(No *externo)
             InserirRN(z, externo, &(ptRaiz[i]));
             nos = contaNos(ptRaiz[i], externo);
         }
-
-        imprimirOrdem(ptRaiz[i], externo);
     }
 }
 
@@ -100,13 +103,17 @@ void testeDeRemocao(No *externo)
         // Enquanto nao ocorrerem as N remocoes, o laco continua
         while (nos > (QTD_NOS - QTD_REMOCOES)) {
             int key = rand() % RAND_LIMITE;
-            No *z = buscarNo(ptRaiz[0], key, externo);
+            No *z = buscarNo(ptRaiz[i], key, externo);
             
             if (z->chave != 0) 
             {
                 RemoverRN(z, externo, &(ptRaiz[i]));
                 nos = contaNos(ptRaiz[i], externo);    
-            }            
+            }else
+            {
+                printf("Chave: %d, não existe na arvore: %d\n", z->chave, i);
+            }
+                        
         }
     }
 }

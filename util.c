@@ -38,9 +38,9 @@ void RotacaoD(No *z, No *externo, No **ptRaiz)
     {
         (*ptRaiz) = y;
     }
-    else if (z == z->pai->esq)
+    else if (z == z->pai->dir)
     {
-        z->pai->esq = y;
+        z->pai->dir = y;
     }else
     {
         z->pai->dir = y;
@@ -124,16 +124,14 @@ int contaNos(No *pt, No *externo)
     return _count;
 }
 
-void imprimiArvores(No *pt, No *externo) 
+void imprimiArvores(No *externo) 
 {
     int i;
     int nos;
 
-    for(i = 0; i < 7; i++) {
-        if(pt != externo) {
-            nos = contaNos(pt, externo); // contando os nos
-            printf("Arvore %d | Quantidade de nos = %d\n", i, nos);
-        }else printf("Arvore %d | NULL\n", i);
+    for(i = 0; i < QTD_ARVORES; i++) {
+        nos = contaNos(ptRaiz[i], externo); // contando os nos
+        printf("Arvore %d | Quantidade de nos = %d\n", (i+1), nos);
     }
 }
 
