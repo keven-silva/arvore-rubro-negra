@@ -2,48 +2,51 @@
 
 
 int main(){
-    testeBaseInserir();
+    No *externo = noExterno();
 
+    // printf("\nTeste base de insercao\n");
+    // testeBaseInserir(externo);
+    // printf("---------------------------------------------------------------");
+    // printf("\nTeste base de remocao\n");
+    // testeBaseRemover(externo);
+
+    testeDeInsercao(externo);
+    // testeDeRemover(externo);
     return 0;
 }
 
 
-void testeBaseInserir()
+void testeBaseInserir(No *externo)
 {
     int i;
     int list[] = { 11, 2, 14, 1, 7, 15, 5, 8, 4};
     
-    No *externo = noExterno();
-
     ptRaiz = (No**)malloc(sizeof(No*) * sizeof(list));    
     ptRaiz[0] = externo;    
-
 
     for ( i = 0; i < (sizeof(list) / sizeof(list[0])); i++)
     {
         No *z = criarNo(list[i], externo);
-        InserirRN(externo, z, &(ptRaiz[0]));
-
+        InserirRN(z, externo, &(ptRaiz[0]));
     }
 
     int count = contaNos(ptRaiz[0], externo);
     printf("\nQTD: %d\n", count);
     
-    // imprimirOrdem(ptRaiz[0], externo);
+    imprimirOrdem(ptRaiz[0], externo);
 }
 
 
-void testeBaseRemover()
+void testeBaseRemover(No *externo)
 {
     int i;
     int list[] = {11, 4};
     
-    No *externo = noExterno();    
 
     for ( i = 0; i < (sizeof(list) / sizeof(list[0])); i++)
     {
-        No *z = criarNo(list[i], externo);
-        RemoverRN(externo, z, &(ptRaiz[0]));
+        No *z = buscarNo(ptRaiz[0], list[i], externo);
+        RemoverRN(z, externo, &(ptRaiz[0]));
 
     }
 
@@ -54,37 +57,40 @@ void testeBaseRemover()
 }
 
 
-// // Prepara as arvores a serem criadas
-// void testeDeInsercao() {
-//     int i;
-//     No *externo = noExterno();   
+// Prepara as arvores a serem criadas
+void testeDeInsercao(No *externo) 
+{
+    int i;
 
-//     // alocando memória para as raizes
-//     ptRaiz = (No**)malloc(sizeof(No*) * QTD_ARVORES);
-//     // Inicializando cada raiz para apontar para NULL
-//     for (i = 0; i < QTD_ARVORES; i++) {
-//         ptRaiz[i] = NULL;
-//     }
+    // alocando memória para as raizes
+    ptRaiz = (No**)malloc(sizeof(No*) * QTD_ARVORES);
+    // Inicializando cada raiz para apontar para NULL
+    for (i = 0; i < QTD_ARVORES; i++) {
+        ptRaiz[i] = NULL;
+    }
     
-//     // Inserindo a quantidade definida de nós em cada árvore
-//     for(i = 0; i < QTD_ARVORES; i++) {
-//         int nos = 0;
+    // Inserindo a quantidade definida de nós em cada árvore
+    for(i = 0; i < QTD_ARVORES; i++) 
+    {
+        int nos = 0;
 
-//         // Enquanto nao ocorrerem as N insercoes, o laco continua
-//         while (nos < QTD_NOS) {
-//             int key = rand() % RAND_LIMITE;
-//             inserir(key, &(ptRaiz[i]), &alturaTotal);
-//             nos = contaNos(ptRaiz[i]);
-//         }
-//         // Atualizando a altura da arvore apos as inserções
-//         atualizaAltura(ptRaiz[i]);
-//     }
+        // Enquanto nao ocorrerem as N insercoes, o laco continua
+        while (nos < QTD_NOS) 
+        {
+            int key = rand() % RAND_LIMITE;
+            No *z = criarNo(key, externo);
+            InserirRN(z, externo, ptRaiz[i]);
+            nos = contaNos(ptRaiz[i], externo);
+        }
 
-// }
+        imprimirOrdem(ptRaiz[i], externo);
+    }
+}
 
 
 // Procedimento que realiza as remocoes exigidas
-// void testeDeExclusao() {
+// void testeDeExclusao(No *externo) 
+//{
 //     int i;
 //     int nos; // contador
 //     for(i = 0; i < QTD_ARVORES; i++) {

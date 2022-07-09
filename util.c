@@ -1,23 +1,24 @@
+#include <stdbool.h>
 #include "util.h"
 
 
-void MoverPai(No **u, No **v, No *externo, No **ptRaiz)
+void MoverPai(No *u, No *v, No *externo, No **ptRaiz)
 {   
-    if((*u)->pai == externo)
+    if(u->pai == externo)
     {
-        (*ptRaiz)  = (*v);
+        (*ptRaiz)  = v;
     }else{
-        if ((*u) == (*u)->pai->esq)
+        if (u == u->pai->esq)
         {
-            (*u)->pai->esq = (*v);
+            u->pai->esq = v;
         }
         else
         {
-            (*u)->pai->dir = (*v);   
+            u->pai->dir = v;   
         }
     }
 
-    (*v)->pai = (*u)->pai;
+    v->pai = u->pai;
 }
 
 
@@ -172,12 +173,32 @@ No* buscarNo(No *z, int key, No *externo)
 }
 
 
-No* sucessor(No *z, No* externo) 
+No *sucessor(No *z, No* externo) 
 {
-    No (*y) = z;
-
-    while(y->esq != externo)
+    No *y = z;
+    
+    while (y->esq != externo)
+    {   
         y = y->esq;
+    }
 
     return y;
 }
+
+
+// bool verificarRN(No *z, No *externo) {
+// 	if(z == externo)
+//     {
+// 		return true;
+//     }
+
+// 	if(get_black_height(z, externo) != -1)
+// 	{
+//         if(verificarRN(z->esq, externo))
+//         {
+//                 return verificarRN(z->dir, externo);
+//         }
+//     }	
+
+// 	return false;
+// }

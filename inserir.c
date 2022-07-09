@@ -19,7 +19,7 @@ void RotaRN(No *z, No *externo, No **ptRaiz)
                 if (z == z->pai->dir)
                 {
                     z = z->pai;
-                    RotacaoE(z->pai, externo, ptRaiz); 
+                    RotacaoE(z, externo, ptRaiz); 
                 }
 
                 z->pai->cor = 'N';
@@ -105,7 +105,6 @@ void InserirRN(No *z, No *externo, No **ptRaiz)
         z->cor = 'R';
         RotaRN(z, externo,  ptRaiz);
     }
-    
-    (*ptRaiz)->cor = 'N';
+   
 }
 
