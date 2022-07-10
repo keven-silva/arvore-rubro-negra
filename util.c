@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include "util.h"
 
 
@@ -131,7 +130,12 @@ void imprimiArvores(No *externo)
 
     for(i = 0; i < QTD_ARVORES; i++) {
         nos = contaNos(ptRaiz[i], externo); // contando os nos
-        printf("Arvore %d | Quantidade de nos = %d\n", (i+1), nos);
+        printf("\nArvore %d | Quantidade de nos = %d\n", (i+1), nos);
+        
+        if(verificarRN(ptRaiz[i], externo))
+        {
+		    printf("\nA árvore é rubro negra.\n");
+        }
     }
 }
 
@@ -184,19 +188,48 @@ No *sucessor(No *z, No* externo)
 }
 
 
-// bool verificarRN(No *z, No *externo) {
-// 	if(z == externo)
-//     {
-// 		return true;
-//     }
+int noNegros(No *z, No *externo) {
+	if(z == externo)
+		return 1;
 
-// 	if(get_black_height(z, externo) != -1)
-// 	{
-//         if(verificarRN(z->esq, externo))
-//         {
-//                 return verificarRN(z->dir, externo);
-//         }
-//     }	
+	int altura_esq = noNegros(z->esq, externo),
+	    altura_dir = noNegros(z->dir, externo);
 
-// 	return false;
-// }
+	if(altura_esq != altura_dir || altura_esq == -1)
+		return -1;
+	else
+		return altura_esq + (z->cor == 'N'? 1 : 0);
+}
+
+
+int pegarNosNegros(No *z, No *externo) {
+	if(z == externo)
+		return 1;
+
+	int altura_esq = noNegros(z->esq, externo),
+	    altura_dir = noNegros(z->dir, externo);
+
+	if(altura_esq != altura_dir || altura_esq == -1)
+		return -1;
+	else
+		return altura_esq;
+}
+
+
+bool verificarRN(No *z, No *externo) 
+{
+	if(z == externo)
+    {
+		return true;
+    }
+
+	if(pegarNosNegros(z, externo) != -1)
+	{
+        if(verificarRN(z->esq, externo))
+        {
+                return verificarRN(z->dir, externo);
+        }
+    }	
+
+	return false;
+}

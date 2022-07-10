@@ -3,10 +3,10 @@
 
 void RemoverRN(No *z, No *externo, No **ptRaiz)
 {
-	No *corOriginal = noExterno();
-    No *x = noExterno();
-	No *y = z;
-	corOriginal->cor = y->cor;
+	char corOriginal;
+    No (*x);
+	No (*y) = z;
+	corOriginal = y->cor;
 
 	if(y->esq == externo) 
     {
@@ -19,7 +19,7 @@ void RemoverRN(No *z, No *externo, No **ptRaiz)
             MoverPai(z, z->esq, externo, ptRaiz);
         } else {
             y = sucessor(z->dir, externo);
-            corOriginal->cor = y->cor;
+            corOriginal = y->cor;
             x = y->dir;
 
             if(y->pai != z)
@@ -41,7 +41,7 @@ void RemoverRN(No *z, No *externo, No **ptRaiz)
 
 	free(z);
 	
-	if(corOriginal->cor == 'N')
+	if(corOriginal == 'N')
     {
 		RotaRemoverRN(x, externo, ptRaiz);
     }
@@ -55,7 +55,7 @@ void RotaRemoverRN(No *z, No *externo, No **ptRaiz)
     {
 		if(z == z->pai->esq) 
         {
-			No *w = z->pai->dir;
+			No (*w) = z->pai->dir;
 
 			if(w->cor == 'R') 
             {
@@ -84,7 +84,7 @@ void RotaRemoverRN(No *z, No *externo, No **ptRaiz)
 				z = (*ptRaiz);
 			}
 		} else {
-			No *w = z->pai->esq;
+			No (*w) = z->pai->esq;
 
 			if(w->cor == 'R') 
 			{

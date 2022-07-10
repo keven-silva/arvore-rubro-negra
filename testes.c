@@ -9,6 +9,8 @@ int main(){
     // printf("---------------------------------------------------------------");
     // printf("\nTeste base de remocao\n");
     // testeBaseRemover(externo);
+
+    
     printf("\nTeste de insercao\n");
     testeDeInsercao(externo);
     imprimiArvores(externo);
@@ -62,24 +64,20 @@ void testeBaseRemover(No *externo)
 }
 
 
-// Prepara as arvores a serem criadas
 void testeDeInsercao(No *externo) 
 {
     int i;
 
-    // alocando memória para as raizes
     ptRaiz = (No**)malloc(sizeof(No*) * QTD_ARVORES);
-    // Inicializando cada raiz para apontar para NULL
+
     for (i = 0; i < QTD_ARVORES; i++) {
         ptRaiz[i] = externo;    
     }
     
-    // Inserindo a quantidade definida de nós em cada árvore
     for(i = 0; i < QTD_ARVORES; i++) 
     {
         int nos = 0;
 
-        // Enquanto nao ocorrerem as N insercoes, o laco continua
         while (nos < QTD_NOS) 
         {
             int key = rand() % RAND_LIMITE;
@@ -91,17 +89,16 @@ void testeDeInsercao(No *externo)
 }
 
 
-// Procedimento que realiza as remocoes exigidas
 void testeDeRemocao(No *externo) 
 {
     int i;
-    int nos; // contador
-    for(i = 0; i < QTD_ARVORES; i++) { 
-     // Variavel para o resultado de alteracao de altura
-        nos = QTD_NOS; // contador
+    int nos; 
+    for(i = 0; i < QTD_ARVORES; i++) 
+    { 
+        nos = QTD_NOS;
 
-        // Enquanto nao ocorrerem as N remocoes, o laco continua
-        while (nos > (QTD_NOS - QTD_REMOCOES)) {
+        while (nos > (QTD_NOS - QTD_REMOCOES)) 
+        {
             int key = rand() % RAND_LIMITE;
             No *z = buscarNo(ptRaiz[i], key, externo);
             
