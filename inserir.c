@@ -33,7 +33,8 @@ void RotaRN(No *z, No *externo, No **ptRaiz)
 
             if (y->cor ='R')
             {
-                z->pai->cor = y->cor = 'N';
+                z->pai->cor = 'N';
+                y->cor = 'N';
                 z->pai->pai->cor = 'R';
                 z = z->pai->pai;
             }else
@@ -64,47 +65,47 @@ void InserirRN(No *z, No *externo, No **ptRaiz)
     {
         y = pt;
 
-        if (z->chave == pt->chave)
+        if (z->chave < pt->chave)
         {
-            printf("Chave %d existente!\n", pt->chave);
-            y = NULL;
-            pt = externo;
-        }
-        else
+            pt = pt->esq;
+        }else
         {
-            if(z->chave < pt->chave)
-            {
-                pt = pt->esq;
-            }else
-            {
-                pt = pt->dir;
-            }
+            pt = pt->dir;
         }
+        
+        // if (z->chave == pt->chave)
+        // {
+        //     printf("Chave %d existente!\n", z->chave);
+        //     y = NULL;
+        //     pt = externo;
+        // }
+        // else if(z->chave < pt->chave)
+        // {
+        //     pt = pt->esq;
+        // }else
+        // {
+        //     pt = pt->dir;
+        // }
     }
-    if (y != NULL)
+
+    z->pai = y;
+
+    if (y == externo)
     {
-        z->pai = y;
-
-        if (y == externo)
-        {
-            (*ptRaiz) = z;
-        }
-        else
-        {
-            if (z->chave < y->chave)
-            {
-                y->esq = z;
-            }
-            else
-            {
-                y->dir = z;
-            }
-        }
-
-        z->esq = z->dir = externo;
-        z->cor = 'R';
-        RotaRN(z, externo,  ptRaiz);
+        (*ptRaiz) = z;
     }
-   
+    else if (z->chave < y->chave)
+    {
+        y->esq = z;
+    }
+    else
+    {
+        y->dir = z;
+    }
+
+    z->esq = externo;
+    z->dir = externo;
+    z->cor = 'R';
+    RotaRN(z, externo,  ptRaiz);
 }
 

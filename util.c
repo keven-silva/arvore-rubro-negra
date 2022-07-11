@@ -23,10 +23,10 @@ void MoverPai(No *u, No *v, No *externo, No **ptRaiz)
 
 void RotacaoD(No *z, No *externo, No **ptRaiz)
 {
-    No *y = z->esq;
+    No (*y) = z->esq;
     z->esq = y->dir;
     
-    if (z->dir != externo)
+    if (y->dir != externo)
     {
         y->dir->pai = z;
     }
@@ -42,7 +42,7 @@ void RotacaoD(No *z, No *externo, No **ptRaiz)
         z->pai->dir = y;
     }else
     {
-        z->pai->dir = y;
+        z->pai->esq = y;
     }   
 
     y->dir = z;
@@ -52,12 +52,12 @@ void RotacaoD(No *z, No *externo, No **ptRaiz)
 
 void RotacaoE(No *z, No *externo, No **ptRaiz)
 {
-    No *y = z->dir;
+    No (*y) = z->dir;
     z->dir = y->esq;
     
-    if (z->esq != externo)
+    if (y->esq != externo)
     {
-        z->esq->pai = z;
+        y->esq->pai = z;
     }
 
     y->pai = z->pai;
@@ -109,7 +109,7 @@ int contaNos(No *pt, No *externo)
 {
     int _count;
 
-    if (pt == externo)
+    if (pt == externo || pt == NULL)
     {
         return 0;
     }
@@ -132,9 +132,10 @@ void imprimiArvores(No *externo)
         nos = contaNos(ptRaiz[i], externo); // contando os nos
         printf("\nArvore %d | Quantidade de nos = %d\n", (i+1), nos);
         
-        if(verificarRN(ptRaiz[i], externo))
+        if(ptRaiz[i] != NULL)
         {
-		    printf("\nA árvore é rubro negra.\n");
+            verificarRN(ptRaiz[i], externo);
+		    printf("\tA arvore e rubro negra.\n");
         }
     }
 }
